@@ -21,15 +21,12 @@ exports = function(app) {
                 return moment(timestamp).startOf('minute').fromNow();
             }
         }
-    }).engine);
+    }));
+
     app.set('view engine', 'handlebars');
-
     app.use(morgan('dev'));
-
     app.use(methodOverride());
     app.use(cookieParser('some-secret-value-here'));
-    
-    
     app.use('/public/', express.static(path.join(__dirname, '../public')));
 
     if ('development' === app.get('env')) {
@@ -37,6 +34,6 @@ exports = function(app) {
     }
 
     routes(app);
-    
+
     return app;
 };
