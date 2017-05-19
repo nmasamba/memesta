@@ -7,7 +7,8 @@ var path = require('path'),
     morgan = require('morgan'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler'),
-    moment = require('moment');
+    moment = require('moment')
+    multer = require('multer');
     
 
 exports = function(app) {
@@ -24,6 +25,9 @@ exports = function(app) {
     }));
 
     app.set('view engine', 'handlebars');
+
+    app.use(multer({ dest: path.join(__dirname, 'public/upload/temp')}));
+    
     app.use(morgan('dev'));
     app.use(methodOverride());
     app.use(cookieParser('some-secret-value-here'));

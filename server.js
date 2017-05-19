@@ -8,13 +8,19 @@ var express = require('express'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler'),
     moment = require('moment')
-    http = require('http');
+    multer = require('multer')
+    mongoose = require('mongoose');
 
 var app = express();
     
 
 app.set('port', process.env.PORT || 3300);
 app.set('views', __dirname + '/views');
+
+mongoose.connect('mongodb://localhost/memesta');
+mongoose.connection.on('open', function() {
+	console.log('Mongoose connected!');
+});
 
 var hbs = exphbs.create({
 	defaultLayout: 'main',
@@ -30,6 +36,8 @@ var hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+app.use(multer({ dest: path.join(__dirname, 'public/upload/temp')}));
 app.use(morgan('dev'));
 app.use(methodOverride());
 app.use(cookieParser('some-secret-value-here'));
