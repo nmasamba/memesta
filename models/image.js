@@ -1,8 +1,11 @@
+/* jshint node: true, camelcase: false */
+'use strict';
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     path = require('path');
 
-var ImageSchema = new Schema({
+var Img = new Schema({
     title:          { type: String },
     description:    { type: String },
     filename:       { type: String },
@@ -11,9 +14,10 @@ var ImageSchema = new Schema({
     timestamp:      { type: Date, 'default': Date.now }
 });
 
-ImageSchema.virtual('uniqueId')
+Img.virtual('uniqueId')
     .get(function() {
         return this.filename.replace(path.extname(this.filename), '');
     });
 
-module.exports = mongoose.model('Image', ImageSchema);
+
+module.exports = mongoose.model('Image', Img);

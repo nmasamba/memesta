@@ -1,43 +1,50 @@
-var path = require('path'),
+var connect = require('connect'),
+    path = require('path'),
     routes = require('./routes'),
-    exphbs = require('express-handlebars'),
-    express = require('express'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    morgan = require('morgan'),
-    methodOverride = require('method-override'),
-    errorHandler = require('errorhandler'),
-    moment = require('moment')
-    multer = require('multer');
-    
+    exphbs = require('express3-handlebars'),
+    moment = require('moment'),
+    fs = require('fs');
 
-exports = function(app) {
+module.exports = function(app) {
     app.engine('handlebars', exphbs.create({
         defaultLayout: 'main',
         layoutsDir: app.get('views') + '/layouts',
         partialsDir: [app.get('views') + '/partials'],
         helpers: {
             timeago: function(timestamp) {
-                console.log(timestamp);
                 return moment(timestamp).startOf('minute').fromNow();
             }
         }
-    }));
-
+    }).engine);
     app.set('view engine', 'handlebars');
 
-    app.use(multer({ dest: path.join(__dirname, 'public/upload/temp')}));
-    
-    app.use(morgan('dev'));
-    app.use(methodOverride());
-    app.use(cookieParser('some-secret-value-here'));
-    app.use('/public/', express.static(path.join(__dirname, '../public')));
+    app.use(connect.logger('dev'));
+    app.use(connect.bodyParser({uploadDir:path.join(__dirname, '../public/upload/temp')}));
+    app.use(connect.json());
+    app.use(connect.urlencoded());
+    app.use(connect.methodOverride());
+    app.use(connect.cookieParser('some-secret-value-here'));
+    app.use(app.router);
+    app.use('/public/', connect['static'](path.join(__dirname, '../public')));
 
     if ('development' === app.get('env')) {
-       app.use(errorHandler());
+        app.use(connect.errorHandler());
     }
 
-    routes(app);
+    //routes list:
+    routes.initialize(app);
+
+    // ensure the temporary upload folder exists
+    fs.exists(path.join(__dirname, '../public/upload/temp'), function(exist) {
+        if (!exist) {
+            fs.mkdir(path.join(__dirname, '../public/upload'), function(err){
+                console.log(err);
+                fs.mkdir(path.join(__dirname, '../public/upload/temp'), function(err){
+                    console.log(err);
+                });
+            });
+        }
+    });
 
     return app;
 };

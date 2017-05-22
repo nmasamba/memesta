@@ -1,10 +1,6 @@
+/* global $, confirm */
 $(function(){
-    $('#post-comment').hide();
-    $('#btn-comment').on('click', function(event) {
-        event.preventDefault();
-
-        $('#post-comment').slideDown();
-    });
+    'use strict';
 
     $('#btn-like').on('click', function(event) {
         event.preventDefault();
@@ -15,6 +11,14 @@ $(function(){
             $('.likes-count').text(data.likes);
         });
     });
+
+    $('#post-comment').hide();
+    $('#btn-comment').on('click', function(event) {
+        event.preventDefault();
+
+        $('#post-comment').slideDown();
+    });
+
 
     $('#btn-delete').on('click', function(event) {
         event.preventDefault();

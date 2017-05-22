@@ -1,9 +1,13 @@
-var Stats = require('./stats'),
-    Images = require('./images'),
-    Comments = require('./comments'),
+/* jshint node: true */
+'use strict';
+
+var Stats = require('../helpers/stats'),
+    Images = require('../helpers/images'),
+    Comments = require('../helpers/comments'),
     async = require('async');
 
 module.exports = function(viewModel, callback){
+
     async.parallel([
         function(next) {
             Stats(next);

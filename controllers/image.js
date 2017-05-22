@@ -1,8 +1,11 @@
-var fs = require('fs'),
+/* jshint node: true, camelcase: false */
+'use strict';
+
+var Models = require('../models'),
     path = require('path'),
-    sidebar = require('../helpers/sidebar'),
-    Models = require('../models'),
-    md5 = require('MD5');
+    fs = require('fs'),
+    MD5 = require('MD5'),
+    sidebar = require('../helpers/sidebar');
 
 module.exports = {
     index: function(req, res) {
@@ -15,6 +18,7 @@ module.exports = {
             function(err, image) {
                 if (err) { throw err; }
                 if (image) {
+
                     image.views = image.views + 1;
                     viewModel.image = image;
                     image.save();
@@ -68,7 +72,7 @@ module.exports = {
                         });
                     } else {
                         fs.unlink(tempPath, function () {
-                            if (err) throw err;
+                            if (err) { throw err; }
 
                             res.json(500, {error: 'Only image files are allowed.'});
                         });
@@ -99,9 +103,7 @@ module.exports = {
             function(err, image) {
                 if (!err && image) {
                     var newComment = new Models.Comment(req.body);
-                    console.log("DOOO")
-                    console.log(req.body)
-                    newComment.gravatar = md5(newComment.email);
+                    newComment.gravatar = MD5(newComment.email);
                     newComment.image_id = image._id;
                     newComment.save(function(err, comment) {
                         if (err) { throw err; }

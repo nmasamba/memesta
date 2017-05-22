@@ -1,3 +1,6 @@
+/* jshint node: true */
+'use strict';
+
 var models = require('../models');
 
 module.exports = {
