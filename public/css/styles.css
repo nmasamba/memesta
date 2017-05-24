@@ -1,11 +1,14 @@
 
 
-a, a:hover, a:visited, a:active { color: #303030; 
-								text-decoration: none; }
+a, a:hover, a:visited, a:active { font-size: 100px; 
+								color: blue; 
+								text-decoration: none;
+								font-weight: bold }
+
 
 .panel-primary { border-color: #000000; }
 
-.panel-primary>.panel-heading { background-color: #303030; 
+.panel-primary>.panel-heading { background-color: blue; 
 								border-color: #000000; }
 
 .media-list>.media { padding-bottom: 1em; 
