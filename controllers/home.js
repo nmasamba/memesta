@@ -1,4 +1,4 @@
-/* jshint node: true */
+
 'use strict';
 
 var sidebar = require('../helpers/sidebar'),

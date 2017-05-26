@@ -1,4 +1,4 @@
-/* jshint node: true, camelcase: false */
+
 'use strict';
 
 var Models = require('../models'),

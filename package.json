@@ -1,30 +1,28 @@
 {
-  "name": "imgPloadr",
-  "description": "A clone of the imgur.com website",
-  "version": "0.0.1-7",
-  "author": "Jason Krol",
+  "name": "memesta",
+  "description": "A website for sharing memes",
   "engines": {
-    "node": "0.10.x"
+    "node": "6.10.3"
   },
-  "port": "7500",
+  "port": "3300",
   "scripts": {
     "start": "node server.js",
-    "test": "// MOCHA COMMAND TO TEST HERE"
+    "test": "// MOCHA TEST COMMAND GOES HERE"
   },
   "dependencies": {
-    "express": "~3.4.2",
-    "mongoose": "~3.8.3",
-    "express3-handlebars": "~0.5.0",
     "MD5": "^1.2.1",
-    "moment": "^2.5.1",
     "async": "^0.7.0",
-    "connect": "^2.14.4"
+    "connect": "^2.14.4",
+    "express": "~3.4.2",
+    "express3-handlebars": "~0.5.0",
+    "mddir": "^1.1.0",
+    "moment": "^2.5.1",
+    "mongoose": "~3.8.3"
   },
   "devDependencies": {
     "chai": "~1.9.0",
     "sinon": "~1.8.1",
     "sinon-chai": "~2.5.0",
     "proxyquire": "~0.5.2"
-  },
-  "subdomain": "imgploadr"
+  }
 }

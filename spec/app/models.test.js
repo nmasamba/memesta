@@ -1,4 +1,6 @@
-/* jshint -W030 */
+
+
+
 var models = require('../../app/models');
 
 describe('Models', function() {

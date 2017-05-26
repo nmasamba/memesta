@@ -1,4 +1,6 @@
-/* global $, confirm */
+/* AJAX code for client side */
+
+
 $(function(){
     'use strict';
 
